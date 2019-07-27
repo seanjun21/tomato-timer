@@ -26,13 +26,29 @@ const styles = StyleSheet.create({
 });
 
 class Timer extends Component {
+  componentWillReceiveProps(nextProps) {
+    const currentProps = this.props;
+    if (!currentProps.isPlaying && nextProps.isPlaying) {
+      const timeInterval = setInterval(() => {
+        currentProps.addSecond();
+      }, 1000);
+      this.setState({
+        timeInterval,
+      });
+    } else if (currentProps.isPlaying && !nextProps.isPlaying) {
+      clearInterval(this.state.timeInterval);
+    }
+  }
+
   render() {
+    console.log(this.props);
     const {
       isPlaying,
       elapsedTime,
       timerDuration,
       startTimer,
       restartTimer,
+      addSecond,
     } = this.props;
     return (
       <View style={styles.container}>
@@ -57,6 +73,7 @@ Timer.propTypes = {
   timerDuration: PropTypes.number,
   startTimer: PropTypes.func,
   restartTimer: PropTypes.func,
+  addSecond: PropTypes.func,
 };
 
 export default Timer;
