@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, StatusBar } from 'react-native';
+import PropTypes from 'prop-types';
 import Button from '../Button';
 
 const styles = StyleSheet.create({
@@ -26,7 +27,13 @@ const styles = StyleSheet.create({
 
 class Timer extends Component {
   render() {
-    const { isPlaying, elapsedTime, timerDuration } = this.props;
+    const {
+      isPlaying,
+      elapsedTime,
+      timerDuration,
+      startTimer,
+      restartTimer,
+    } = this.props;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -34,16 +41,22 @@ class Timer extends Component {
           <Text style={styles.time}>25:00</Text>
         </View>
         <View style={styles.lower}>
-          {!isPlaying && (
-            <Button iconName="play-circle" onPress={() => alert('it works!')} />
-          )}
+          {!isPlaying && <Button iconName="play-circle" onPress={startTimer} />}
           {isPlaying && (
-            <Button iconName="stop-circle" onPress={() => alert('it works!')} />
+            <Button iconName="stop-circle" onPress={restartTimer} />
           )}
         </View>
       </View>
     );
   }
 }
+
+Timer.propTypes = {
+  isPlaying: PropTypes.bool,
+  elapsedTime: PropTypes.number,
+  timerDuration: PropTypes.number,
+  startTimer: PropTypes.func,
+  restartTimer: PropTypes.func,
+};
 
 export default Timer;
