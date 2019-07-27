@@ -26,7 +26,7 @@ function addSecond() {
   };
 }
 
-// Reducer
+// Reducer Variables
 
 const TIMER_DURATION = 1500;
 
@@ -35,17 +35,6 @@ const initialState = {
   elapsedTime: 0,
   timerDuration: TIMER_DURATION,
 };
-
-function reducer(state = initialState, action) {
-  switch (action.type) {
-    case START_TIMER:
-      return applyStartTimer(state);
-    case RESTART_TIMER:
-      return applyRestartTimer(state);
-    case ADD_SECOND:
-      return applyAddSecond(state);
-  }
-}
 
 // Reducer Functions
 
@@ -77,6 +66,21 @@ function applyAddSecond(state) {
   };
 }
 
+// Reducer
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case START_TIMER:
+      return applyStartTimer(state);
+    case RESTART_TIMER:
+      return applyRestartTimer(state);
+    case ADD_SECOND:
+      return applyAddSecond(state);
+    default:
+      return state;
+  }
+}
+
 // Export Action Creators
 
 const actionCreators = {
@@ -84,6 +88,7 @@ const actionCreators = {
   restartTimer,
   addSecond,
 };
+export { actionCreators };
 
 // Export Reducer
 
