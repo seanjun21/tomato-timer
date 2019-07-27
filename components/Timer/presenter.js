@@ -25,6 +25,17 @@ const styles = StyleSheet.create({
   },
 });
 
+function formatTime(time) {
+  let timeParam = time;
+  const minutes = Math.floor(timeParam / 60);
+  timeParam -= minutes * 60;
+  const seconds = parseInt(timeParam % 60, 10);
+
+  return `${minutes < 10 ? `0${minutes}` : minutes}:${
+    seconds < 10 ? `0${seconds}` : seconds
+  }`;
+}
+
 class Timer extends Component {
   componentWillReceiveProps(nextProps) {
     const currentProps = this.props;
@@ -36,25 +47,26 @@ class Timer extends Component {
         timeInterval,
       });
     } else if (currentProps.isPlaying && !nextProps.isPlaying) {
-      clearInterval(this.state.timeInterval);
+      const { timeInterval } = this.state;
+      clearInterval(timeInterval);
     }
   }
 
   render() {
-    console.log(this.props);
     const {
       isPlaying,
       elapsedTime,
       timerDuration,
       startTimer,
       restartTimer,
-      addSecond,
     } = this.props;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={styles.upper}>
-          <Text style={styles.time}>25:00</Text>
+          <Text style={styles.time}>
+            {formatTime(timerDuration - elapsedTime)}
+          </Text>
         </View>
         <View style={styles.lower}>
           {!isPlaying && <Button iconName="play-circle" onPress={startTimer} />}
