@@ -1,6 +1,6 @@
 # Tomato Timer
 
-A timer for The Pomodoro Technique, a time management method developed by Francesco Cirillo in the late 1980s.
+A mobile timer for The Pomodoro Technique, a time management method developed by Francesco Cirillo in the late 1980s.
 
 1. Decide on the task to be done.
 2. Set the pomodoro timer (traditionally to 25 minutes).[1]
